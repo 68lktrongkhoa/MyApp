@@ -8,11 +8,18 @@ import TabBarBackground from '@/components/ui/TabBarBackground';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
 
+import SumIcon from '@/assets/images/tong-quan.svg';
+import DonHangIcon from '@/assets/images/don-hang.svg';
+import GanttIcon from '@/assets/images/sodogatt.svg';
+import LenhSXIcon from '@/assets/images/lenh-san-xuat.svg';
+import XemThemIcon from '@/assets/images/lenh-san-xuat.svg';
+
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
   return (
     <Tabs
+      initialRouteName="index"
       screenOptions={{
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
@@ -20,24 +27,45 @@ export default function TabLayout() {
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
+            position: 'absolute', 
           },
-          default: {},
+          default: {}, 
         }),
-      }}>
+      }}
+    >
       <Tabs.Screen
-        name="index"
+        name="overview"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: 'Tổng quan',
+          tabBarIcon: ({ color }) => <SumIcon width={24} height={24} color={color} />, 
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="orders"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Đơn hàng',
+          tabBarIcon: ({ color }) => <DonHangIcon width={24} height={24}  color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="gantt-chart"
+        options={{
+          title: 'Sơ đồ Gantt',
+          tabBarIcon: ({ color }) => <GanttIcon width={24} height={24}   color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Lệnh SX',
+          tabBarIcon: ({ color }) => <LenhSXIcon width={24} height={24}  color={color} />, 
+        }}
+      />
+      <Tabs.Screen
+        name="more"
+        options={{
+          title: 'Xem thêm',
+          tabBarIcon: ({ color }) => <XemThemIcon width={24} height={24}  color={color} />,
         }}
       />
     </Tabs>
