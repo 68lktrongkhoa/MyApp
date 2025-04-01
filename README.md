@@ -1,50 +1,83 @@
-# Welcome to your Expo app 👋
+# Tab Navigation Documentation
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+## Overview
+This file (`tab.tsx`) sets up the main tab navigation for the application using Expo Router. It defines 5 main tabs that users can navigate between.
 
-## Get started
+## Tab Structure
 
-1. Install dependencies
+### Tab Configuration
+- **Initial Route**: The app will always start on the "Lệnh SX" (Production Orders) tab
+- **Tab Bar Style**: 
+  - Absolute positioning on iOS
+  - Default positioning on other platforms
+- **Custom Components**:
+  - `HapticTab`: Provides haptic feedback when tabs are pressed
+  - `TabBarBackground`: Custom background for the tab bar
 
-   ```bash
-   npm install
-   ```
+### Available Tabs
 
-2. Start the app
+| Tab Name      | Display Name | Icon Component      | Description                  |
+|---------------|--------------|---------------------|------------------------------|
+| `overview`    | Tổng quan    | `SumIcon`           | Main dashboard/overview      |
+| `orders`      | Đơn hàng     | `DonHangIcon`       | Order management             |
+| `gantt-chart` | Sơ đồ Gantt  | `GanttIcon`         | Gantt chart visualization    |
+| `index`       | Lệnh SX      | `LenhSXIcon`        | Production orders (default)  |
+| `more`        | Xem thêm     | `XemThemIcon`       | Additional options           |
 
-   ```bash
-    npx expo start
-   ```
+## Implementation Details
 
-In the output, you'll find options to open the app in a
+### Dependencies
+- `expo-router`: For navigation functionality
+- `react-native`: For platform-specific styling
+- Custom SVG icons for each tab
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+### Key Features
+1. **Dynamic Coloring**:
+   - Tab icons change color based on active state using the `color` prop
+   - Colors are pulled from the app's theme system (`Colors` constant)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+2. **Platform Adaptability**:
+   - Different tab bar positioning for iOS vs other platforms
+   - Uses `Platform.select()` for platform-specific styles
 
-## Get a fresh project
+3. **Custom Components**:
+   - Haptic feedback on tab press
+   - Custom tab bar background
 
-When you're ready, run:
-
-```bash
-npm run reset-project
+## File Structure Requirements
+For this navigation to work properly, ensure you have these files in your `app` directory:
+```
+app/
+  (tabs)/
+    overview.tsx
+    orders.tsx
+    gantt-chart.tsx
+    index.tsx      # Production Orders screen
+    more.tsx
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## Troubleshooting
 
-## Learn more
+### Common Issues
+1. **Tabs not showing**:
+   - Verify all screen components exist in `app/(tabs)`
+   - Check console for any errors about missing components
 
-To learn more about developing your project with Expo, look at the following resources:
+2. **Icons not displaying**:
+   - Ensure all SVG icon files exist in `@/assets/images/`
+   - Verify SVG components accept `width`, `height`, and `color` props
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+3. **Default tab not working**:
+   - Confirm `initialRouteName="index"` is set
+   - Check that `app/(tabs)/index.tsx` exists and exports a valid component
 
-## Join the community
+### Development Notes
+- To change the default tab, modify the `initialRouteName` prop
+- To add more tabs, create a new `<Tabs.Screen>` component and add the corresponding file in `app/(tabs)`
+- Tab order can be rearranged by moving the `<Tabs.Screen>` components
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Style Customization
+To modify the tab bar appearance, edit these properties in `screenOptions`:
+- `tabBarActiveTintColor`: Active tab icon color
+- `tabBarStyle`: Overall tab bar styling
+- `tabBarBackground`: Custom background component
