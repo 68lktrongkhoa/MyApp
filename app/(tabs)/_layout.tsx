@@ -12,7 +12,7 @@ import SumIcon from '@/assets/images/tong-quan.svg';
 import DonHangIcon from '@/assets/images/don-hang.svg';
 import GanttIcon from '@/assets/images/sodogatt.svg';
 import LenhSXIcon from '@/assets/images/lenh-san-xuat.svg';
-import XemThemIcon from '@/assets/images/lenh-san-xuat.svg';
+import XemThemIcon from '@/assets/images/xem-them.svg';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
